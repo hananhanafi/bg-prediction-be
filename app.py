@@ -2,8 +2,13 @@ from flask import Flask, request, jsonify
 import json
 import pickle
 import psycopg2
+from flask_cors import CORS, cross_origin
+import numpy as np
+
+
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 model = pickle.load(open('model.pkl','rb'))
 
 def get_db_connection():
@@ -23,6 +28,19 @@ def patients():
     cur.close()
     conn.close()
     return jsonify({'data': patient_records})  # return model output
+
+@app.route('/patients_id', methods=['GET'])
+def patient_id():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('select pr.ptid from patient_records pr group by pr.ptid order by pr.ptid;')
+    patient_records = cur.fetchall()
+    cur.close()
+    conn.close()
+    arr = np.array(patient_records)
+    result = arr.flatten()
+    result_str = [int(i) for i in result]  # save the result
+    return jsonify({'data': result_str})  # return model output
 
 @app.route('/patient/<int:id>', methods=['GET'])
 def patient(id):
