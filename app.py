@@ -5,8 +5,6 @@ import psycopg2
 from flask_cors import CORS, cross_origin
 import numpy as np
 
-
-
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 model = pickle.load(open('model.pkl','rb'))
@@ -46,7 +44,7 @@ def patient_id():
 def patient(id):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM patient_records where ptid = ' + str(id) + ' order by ptid,bgdatetime ;')
+    cur.execute('SELECT * FROM patient_records where ptid = ' + str(id) + ' order by ptid,bgdatetime;')
     patient_records = cur.fetchall()
     cur.close()
     conn.close()
@@ -64,8 +62,7 @@ def get_prediction():
         result = model.predict(x)  # predict
         x[0].pop(0)
         x[0].append(result[0])
-    result_str = [str(i) for i in result]  # save the result
-    # Loading model to compare the results
+    result_str = [(i) for i in result]  # save the result
     return jsonify({'data': result_str})  # return model output
 
 if __name__ == '__main__':
