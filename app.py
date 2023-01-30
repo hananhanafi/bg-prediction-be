@@ -44,11 +44,16 @@ def patient_id():
 def patient(id):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM patient_records where ptid = ' + str(id) + ' order by ptid,bgdatetime;')
+    cur.execute('SELECT ptid, bgdatetime, bglevel FROM patient_records where ptid = ' + str(id) + ' order by ptid,bgdatetime;')
     patient_records = cur.fetchall()
     cur.close()
     conn.close()
-    return jsonify({'data': patient_records})  # return model output
+    result_str = [{
+                "pt_id": i[0],
+                "bg_datetime": i[1],
+                "bg_level": i[2]
+            } for i in patient_records]  # save the result
+    return jsonify({'data': result_str})  # return model output
 
 @app.route('/patient/predict', methods=['POST'])
 def get_prediction():
