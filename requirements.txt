@@ -1,1 +1,4 @@
 Flask==2.2.2
+psycopg2==2.9.5
+Flask-Cors==3.0.10
+numpy==1.24.1
