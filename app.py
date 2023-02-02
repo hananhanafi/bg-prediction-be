@@ -7,7 +7,7 @@ import numpy as np
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
-model = pickle.load(open('model.pkl','rb'))
+model = pickle.load(open('./model.pkl','rb'))
 
 def get_db_connection():
     conn = psycopg2.connect("postgresql://postgres:112233@localhost:5432/db_bg_prediction")
