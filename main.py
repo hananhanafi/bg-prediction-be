@@ -11,7 +11,8 @@ model = pickle.load(open('./model.pkl','rb'))
 
 def get_db_connection():
     # conn = psycopg2.connect("postgresql://postgres:112233@localhost:5432/db_bg_prediction")
-    conn = psycopg2.connect("postgresql://postgres:sYexBzTNwELiTks3sMzh@containers-us-west-196.railway.app:5898/railway")
+    conn = psycopg2.connect("postgresql://postgres:gMuC7xv0nd1qapGtS2wq@containers-us-west-196.railway.app:5898/railway")
+    
     return conn
 
 @app.route("/")
@@ -63,12 +64,14 @@ def get_prediction():
     data = req_json['data']
     x = data
     
+    resultArr = []
     result = []
     for i in range(ph):
         result = model.predict(x)  # predict
         x[0].pop(0)
         x[0].append(result[0])
-    result_str = [(i) for i in result]  # save the result
+        resultArr.append(result[0])
+    result_str = [(i) for i in resultArr]  # save the result
     return jsonify({'data': result_str})  # return model output
 
 if __name__ == '__main__':
