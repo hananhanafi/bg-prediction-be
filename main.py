@@ -89,11 +89,11 @@ def get_prediction():
     ph = int(req_json['ph'])
     data = req_json['data']
     x = data
-    x_with_stats = stats_features(x)
     
     resultArr = []
     result = []
     for i in range(ph):
+        x_with_stats = stats_features(x) # extract stats feature
         result = model.predict(x_with_stats)  # predict
         x[0].pop(0)
         x[0].append(result[0])
