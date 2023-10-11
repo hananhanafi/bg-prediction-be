@@ -12,7 +12,7 @@ CORS(app, support_credentials=True)
 model = pickle.load(open('./model.pkl','rb'))
 
 def get_db_connection():
-    conn = psycopg2.connect("postgresql://postgres:sharon12@localhost:5432/db_bg_prediction")
+    conn = psycopg2.connect("postgres://default:YHaCZebV0w7W@ep-sparkling-queen-33979936.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb")
     return conn
 
 @app.route("/")
