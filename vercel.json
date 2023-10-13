@@ -11,5 +11,6 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ]
+    ],
+    "installCommand": "pip install -r requirements.txt"
   }
