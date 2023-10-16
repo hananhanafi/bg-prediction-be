@@ -102,4 +102,4 @@ def get_prediction():
     return jsonify({'data': result_str})  # return model output
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
