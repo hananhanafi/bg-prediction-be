@@ -9,3 +9,4 @@ Flask-Cors==3.0.10
 numpy==1.24.1
 psycopg2-binary~=2.9.6
 scikit-learn==1.2.0
+FuzzyTM==2.0.5
